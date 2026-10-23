@@ -1,0 +1,24 @@
+<main class="contenedor">
+  <h1>Lista de usuarios</h1>
+
+  @if (cargando) {
+    <p>Cargando usuarios...</p>
+  } @else if (error) {
+    <p class="error">{{ error }}</p>
+  } @else {
+    @if (usuarios.length > 0) {
+      <section class="tarjetas">
+        @for (usuario of usuarios; track usuario.id) {
+          <article class="tarjeta">
+            <h2>{{ usuario.name }}</h2>
+            <p><strong>ID:</strong> {{ usuario.id }}</p>
+            <p><strong>Correo:</strong> {{ usuario.email }}</p>
+            <p><strong>Teléfono:</strong> {{ usuario.phone }}</p>
+          </article>
+        }
+      </section>
+    } @else {
+      <p>No se encontraron usuarios.</p>
+    }
+  }
+</main>

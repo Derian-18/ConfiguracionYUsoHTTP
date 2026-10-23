@@ -1,0 +1,54 @@
+.contenedor {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  font-family: Arial, sans-serif;
+  color: #222;
+}
+
+h1 {
+  margin-bottom: 8px;
+}
+
+.descripcion {
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.tarjeta {
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgb(0 0 0 / 8%);
+  overflow-wrap: anywhere;
+}
+
+.tarjeta h2 {
+  margin-top: 0;
+  color: #2563eb;
+  font-size: 20px;
+}
+
+.tarjeta p {
+  line-height: 1.5;
+}
+
+.mensaje {
+  padding: 15px;
+  background-color: #eff6ff;
+  border-radius: 8px;
+}
+
+.error {
+  padding: 15px;
+  color: #b91c1c;
+  background-color: #fee2e2;
+  border-radius: 8px;
+}
