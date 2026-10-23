@@ -1,40 +1,28 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { UsuariosService, Usuario } from '../services/usuarios';
-import { timeout, catchError, finalize, of } from 'rxjs';
+import { timeout, catchError, finalize, of, Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [],
+  imports: [AsyncPipe],
   templateUrl: './usuarios.html',
   styleUrl: './usuarios.css'
 })
 export class UsuariosComponent implements OnInit {
   private usuariosService = inject(UsuariosService);
 
-  usuarios: Usuario[] = [];
-  cargando = true;
-  error = '';
+  usuarios$!: Observable<Usuario[] | null>;
+  errorOcurrido = false;
 
   ngOnInit(): void {
-    console.log('Componente inicializado');
-
-    this.usuariosService.obtenerUsuarios().subscribe({
-      next: (datos) => {
-        console.log('Usuarios recibidos:', datos);
-
-        this.usuarios = datos;
-        this.cargando = false;
-      },
-      error: (err) => {
+    this.usuarios$ = this.usuariosService.obtenerUsuarios().pipe(
+      catchError((err) => {
         console.error('Error HTTP:', err);
-
-        this.error = 'No se pudieron cargar los usuarios.';
-        this.cargando = false;
-      },
-      complete: () => {
-        console.log('Solicitud completada');
-      }
-    });
-  } 
-} 
+        this.errorOcurrido = true;
+        return of(null);
+      })
+    );
+  }
+}

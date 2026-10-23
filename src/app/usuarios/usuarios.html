@@ -1,11 +1,7 @@
 <main class="contenedor">
   <h1>Lista de usuarios</h1>
 
-  @if (cargando) {
-    <p>Cargando usuarios...</p>
-  } @else if (error) {
-    <p class="error">{{ error }}</p>
-  } @else {
+  @if (usuarios$ | async; as usuarios) {
     @if (usuarios.length > 0) {
       <section class="tarjetas">
         @for (usuario of usuarios; track usuario.id) {
@@ -20,5 +16,9 @@
     } @else {
       <p>No se encontraron usuarios.</p>
     }
+  } @else if (errorOcurrido) {
+    <p class="error">No se pudieron cargar los usuarios.</p>
+  } @else {
+    <p>Cargando usuarios...</p>
   }
 </main>
